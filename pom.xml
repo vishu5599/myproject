@@ -1,24 +1,23 @@
 <project>
-  <modelVersion>3.9.9</modelVersion>
-  <name>Maven Default Project</name>
- 
+  <modelVersion>4.0.0</modelVersion>
+
   <repositories>
     <repository>
       <id>central</id>
-      <name>Maven Repository Switchboard</name>
+      <name>Central Repository</name>
+      <url>http://repo.maven.apache.org/maven2</url>
       <layout>default</layout>
-      <url>http://repo1.maven.org/maven2</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
   </repositories>
- 
+
   <pluginRepositories>
     <pluginRepository>
       <id>central</id>
-      <name>Maven Plugin Repository</name>
-      <url>http://repo1.maven.org/maven2</url>
+      <name>Central Repository</name>
+      <url>http://repo.maven.apache.org/maven2</url>
       <layout>default</layout>
       <snapshots>
         <enabled>false</enabled>
@@ -28,14 +27,13 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
- 
+
   <build>
     <directory>${project.basedir}/target</directory>
     <outputDirectory>${project.build.directory}/classes</outputDirectory>
     <finalName>${project.artifactId}-${project.version}</finalName>
     <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
     <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-    <!-- TODO: MNG-3731 maven-plugin-tools-api < 2.4.4 expect this to be relative... -->
     <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
     <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
     <resources>
@@ -48,107 +46,50 @@
         <directory>${project.basedir}/src/test/resources</directory>
       </testResource>
     </testResources>
-   <pluginManagement>
-       <plugins>
-         <plugin>
-           <artifactId>maven-antrun-plugin</artifactId>
-           <version>1.3</version>
-         </plugin>       
-         <plugin>
-           <artifactId>maven-assembly-plugin</artifactId>
-           <version>2.2-beta-2</version>
-         </plugin>         
-         <plugin>
-           <artifactId>maven-clean-plugin</artifactId>
-           <version>2.2</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-compiler-plugin</artifactId>
-           <version>2.0.2</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-dependency-plugin</artifactId>
-           <version>2.0</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-deploy-plugin</artifactId>
-           <version>2.4</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-ear-plugin</artifactId>
-           <version>2.3.1</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-ejb-plugin</artifactId>
-           <version>2.1</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-install-plugin</artifactId>
-           <version>2.2</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-jar-plugin</artifactId>
-           <version>2.2</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-javadoc-plugin</artifactId>
-           <version>2.5</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-plugin-plugin</artifactId>
-           <version>2.4.3</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-rar-plugin</artifactId>
-           <version>2.2</version>
-         </plugin>        
-         <plugin>                
-           <artifactId>maven-release-plugin</artifactId>
-           <version>2.0-beta-8</version>
-         </plugin>
-         <plugin>                
-           <artifactId>maven-resources-plugin</artifactId>
-           <version>2.3</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-site-plugin</artifactId>
-           <version>2.0-beta-7</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-source-plugin</artifactId>
-           <version>2.0.4</version>
-         </plugin>         
-         <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.4.3</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-war-plugin</artifactId>
-           <version>2.1-alpha-2</version>
-         </plugin>
-       </plugins>
-     </pluginManagement>
+    <pluginManagement>
+      <!-- NOTE: These plugins will be removed from future versions of the super POM -->
+      <!-- They are kept for the moment as they are very unlikely to conflict with lifecycle mappings (MNG-4453) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.3</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2-beta-5</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
- 
+
   <reporting>
     <outputDirectory>${project.build.directory}/site</outputDirectory>
   </reporting>
+
   <profiles>
+    <!-- NOTE: The release profile will be removed from future versions of the super POM -->
     <profile>
       <id>release-profile</id>
- 
+
       <activation>
         <property>
           <name>performRelease</name>
           <value>true</value>
         </property>
       </activation>
- 
+
       <build>
         <plugins>
           <plugin>
             <inherited>true</inherited>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
@@ -161,7 +102,6 @@
           </plugin>
           <plugin>
             <inherited>true</inherited>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <executions>
               <execution>
@@ -174,7 +114,6 @@
           </plugin>
           <plugin>
             <inherited>true</inherited>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
             <configuration>
               <updateReleaseInfo>true</updateReleaseInfo>
@@ -184,5 +123,5 @@
       </build>
     </profile>
   </profiles>
- 
+
 </project>

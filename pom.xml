@@ -1,5 +1,5 @@
 <project>
-  <modelVersion>4.0.0</modelVersion>
+  <modelVersion>3.9.9</modelVersion>
   <name>Maven Default Project</name>
  
   <repositories>
